@@ -1,7 +1,7 @@
 package main
 
 import (
-	"/opt/Project/RIP/LAB1/internal/api/"
+	"LAB1/internal/api"
 	"log"
 )
 
