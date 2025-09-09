@@ -36,19 +36,31 @@ func (r *Repository) GetOrders() ([]Order, error) {
 	orders := []Order{ // массив элементов из наших структур
 		{
 			ID:    1,
-			Title: "first order",
+			Title: "Майалл II",
 		},
 		{
 			ID:    2,
-			Title: "second order",
+			Title: "M31N 2008-12a",
 		},
 		{
 			ID:    3,
-			Title: "third order",
+			Title: "S Андромеды",
+		},
+		{
+			ID:    4,
+			Title: "NGC 206",
+		},
+		{
+			ID:    5,
+			Title: "HIP 544",
+		},
+		{
+			ID:    6,
+			Title: "M32 Star A",
 		},
 	}
-	// обязательно проверяем ошибки, и если они появились - передаем выше, то есть хендлеру
-	// тут я снова искусственно обработаю "ошибку" чисто чтобы показать вам как их передавать выше
+
+	// проверка на пустой массив
 	if len(orders) == 0 {
 		return nil, fmt.Errorf("массив пустой")
 	}

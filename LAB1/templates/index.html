@@ -1,27 +1,50 @@
-<html lang="en">
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;700&display=swap" rel="stylesheet">
+<html lang="ru">
 <head>
     <title>Metoda</title>
     <link rel="stylesheet" href="/static/styles/index_style.css">
 </head>
-<header>
-    <h1>
-        <a href="/hello"><img src="/static/img/image.png" alt="home"></a>
-    </h1>
+<body>
+<header class="top-bar">
+    <div class="top-bar-inner">
+        <!-- поиск слева -->
+        <div class="top-left">
+            <form action="/hello" method="GET" class="search-form">
+                <input type="text" name="query" placeholder="Поиск звезды..." value="{{ .query }}">
+            </form>
+        </div>
+
+        <!-- лого по центру -->
+        <div class="top-center">
+            <a href="/hello" class="logo">
+                <img src="/static/img/image.png" alt="home">
+            </a>
+        </div>
+
+        <!-- пустое место справа -->
+        <div class="top-right"></div>
+    </div>
 </header>
-<form action="/hello" method="GET">
-    <input type="text" name="query" placeholder="Введите запрос" value="{{ .query }}">
-    <!-- value="{{ .query }}"  нужно для того, чтобы из обработчика передавать
-    введенный запрос обратно на страницу. Тем самым введенный текст в поле поиска будет сохраняться-->
-    <button type="submit">Найти</button>
-</form>
-    <h2>
-        {{ .time }}
-    </h2>
-    <ul>
+
+<main>
+    <div class="page-title-wrapper">
+        <div class="page-title-inner">
+            <h1 class="page-title">Звезды галактики Андромеды</h1>
+        </div>
+    </div>
+
+    <section class="stars-grid">
         {{ range .orders }}
-        <li>
-            <a href="/order/{{ .ID }}"> {{ .Title }} </a>
-        </li>
+        <article class="star-card">
+            <a href="/order/{{ .ID }}">
+                <img src="/static/img/image.png" alt="{{ .Title }}">
+                <h2>{{ .Title }}</h2>
+                <p>расстояние от центра</p>
+            </a>
+        </article>
         {{ end }}
-    </ul>
+    </section>
+</main>
+
+</body>
 </html>

@@ -1,22 +1,174 @@
-header img { /*задаем размер картинки*/
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
+/* ====== базовая раскладка ====== */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f4f4f4;
+    color: #111;
+}
+
+/* чёрная полоса */
+.top-bar {
+    background: black;
+    height: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.top-bar-inner {
+    width: calc(3 * 455px + 2 * 110px); /* ширина = ширина сетки карточек */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top-left, .top-center, .top-right {
+    flex: 1; /* каждая зона занимает равное место */
+    display: flex;
+    align-items: center;
+}
+
+.top-center {
+    justify-content: center; /* лого строго по центру */
+}
+
+.top-left {
+    justify-content: flex-start; /* поиск прижат влево */
+}
+
+.top-right {
+    justify-content: flex-end; /* пустая область для баланса */
+}
+
+/* логотип */
+.logo img {
+    width: 89px;
+    height: 75px;
+    object-fit: contain;
+}
+
+.search-form {
+    position: relative;
+    width: 455px;                /* ширина как у карточки */
+    height: 40px;                /* высота строки поиска */
+}
+
+.search-form input {
+    width: 100%;
+    height: 100%;
+    padding: 0 40px 0 12px;      /* справа место под иконку */
+    font-family: "Golos Text", sans-serif;
+    font-weight: 400;            /* Regular */
+    font-size: 20px;
+    color: #565C65;
+    background: transparent;
+    border: 1px solid #565C65;
+    outline: none;
 }
 
 
-ul li a {
+
+main { padding: 0px 24px; }
+h1 { text-align: left; margin: 16px 0 32px; }
+
+/* ====== сетка 3x2 ====== */
+.page-title {
+    font-family: "Golos Text", sans-serif;
+    font-weight: 700;
+    font-size: 70px;
+    line-height: 1.1;
+    margin-top: 55px;     /* только сверху */
+    margin-bottom: 55px;  /* только снизу */
+    color: #111;
+    text-align: left;
+}
+
+.stars-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 455px);
+    grid-auto-rows: 681.5px;
+    column-gap: 110px;
+    row-gap: 110px;
+    justify-content: center;
+    /* margin-top: 110px;  ← убираем */
+}
+
+
+/* выравнивание заголовка по первому столбцу сетки */
+.page-title-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.page-title-inner {
+    width: calc(3 * 455px + 2 * 110px); /* ширина сетки (3 карточки + 2 промежутка) */
+}
+
+/* ====== карточка звезды ====== */
+.star-card {
+    width: 455px;
+    height: 681.5px;
+    background: #000;                   /* подложка на случай отсутствия картинки */
+    border: 1px solid #e5e5e5;          /* тонкая рамка, можно убрать */
+    border-radius: 0;                   /* без скруглений */
+    overflow: hidden;
+    position: relative;
+    box-shadow: none;                   /* без теней */
+    padding: 0;                         /* без внутренних отступов */
+}
+
+.star-card a {
+    display: block;
+    width: 100%;
+    height: 100%;
     text-decoration: none;
-    color: #333;
-    font-size: 18px;
+    color: #fff;
+    position: relative;
 }
 
-ul li a:hover {
-    text-decoration: underline;
+.star-card img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;                   /* картинка заполняет карточку */
+    border-radius: 0;                    /* без скруглений */
 }
 
-h2 {
-    color: #333;
-    font-size: 18px;
-    margin-top: 20px;
+/* подписи поверх картинки (как в макете) */
+.star-card h2,
+.star-card p {
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    margin: 0;
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+    pointer-events: none;
+}
+
+.star-card h2 {
+    position: absolute;
+    left: 44px;
+    top: 578px;       
+    font-family: "Golos Text", sans-serif;
+    font-weight: 700;              /* BOLD */
+    font-size: 40px;               /* размер 40 */
+    line-height: 1; 
+    margin: 0;
+    color: #fff;
+    letter-spacing: normal;        /* без доп. трекинга */
+}
+
+.star-card p {
+    position: absolute;
+    left: 44px;
+    top: 622px;       
+    font-family: "Golos Text", sans-serif;
+    font-weight: 400;              /* REGULAR */
+    font-size: 20px;               /* размер 20 */
+    line-height: 1.2; 
+    margin: 0;
+    color: #fff;
+    letter-spacing: 0.25em;        /* 25% spacing */
 }

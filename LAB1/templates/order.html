@@ -1,13 +1,19 @@
-<html lang="en">
+<html lang="ru">
 <head>
     <title>Metoda</title>
     <link rel="stylesheet" href="/static/styles/order_style.css">
 </head>
-<header>
-    <h1>
-        <a href="/hello"><img src="/static/img/image.png" alt="home" width="50px" height="50px"></a>
-    </h1>
+<body>
+<header class="top-bar">
+    <a href="/hello" class="logo">
+        <img src="/static/img/image.png" alt="home" width="50" height="50">
+    </a>
 </header>
-    <h1>Информация о заказе №{{ .order.ID }}</h1>
-    <h2>Заголовок: {{ .order.Title }}</h2>
+
+<main>
+    <h1>Информация о звезде №{{ .order.ID }}</h1>
+    <h2>Название: {{ .order.Title }}</h2>
+    <p>Расстояние: {{ .order.Distance }} св. лет</p>
+</main>
+</body>
 </html>
