@@ -1,7 +1,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;700&display=swap" rel="stylesheet">
 <html lang="ru">
 <head>
-    <title>Metoda</title>
+    <title>Звёзды галактики Андромеды</title>
     <link rel="stylesheet" href="/static/styles/index_style.css">
 </head>
 <body>
@@ -39,7 +39,7 @@
             <a href="/order/{{ .ID }}">
                 <img src="/static/img/image.png" alt="{{ .Title }}">
                 <h2>{{ .Title }}</h2>
-                <p>расстояние от центра</p>
+                <p>{{ .Distance }} св. лет</p>
             </a>
         </article>
         {{ end }}

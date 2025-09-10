@@ -1,19 +1,37 @@
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-    <title>Metoda</title>
+    <meta charset="UTF-8">
+    <title>Детали звезды</title>
+    <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/styles/order_style.css">
 </head>
 <body>
+
 <header class="top-bar">
-    <a href="/hello" class="logo">
-        <img src="/static/img/image.png" alt="home" width="50" height="50">
-    </a>
+    <div class="top-bar-inner">
+        <!-- логотип строго по центру -->
+        <a href="/hello" class="logo">
+            <img src="/static/img/image.png" alt="home">
+        </a>
+    </div>
 </header>
 
 <main>
-    <h1>Информация о звезде №{{ .order.ID }}</h1>
-    <h2>Название: {{ .order.Title }}</h2>
-    <p>Расстояние: {{ .order.Distance }} св. лет</p>
+    <div class="page-title-wrapper">
+        <div class="page-title-inner">
+            <h1 class="page-title">{{ .Title }}</h1>
+        </div>
+    </div>
+
+    <section class="order-details">
+        <p><strong>ID:</strong> {{ .ID }}</p>
+        <p><strong>Название:</strong> {{ .Title }}</p>
+        <p><strong>Расстояние:</strong> {{ .Distance }} св. лет</p>
+        <p><strong>Описание:</strong> {{ .Description }}</p>
+        <img src="/static/img/image.png" alt="{{ .Title }}">
+    </section>
 </main>
+
 </body>
 </html>

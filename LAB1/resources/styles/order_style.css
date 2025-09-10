@@ -1,25 +1,89 @@
+/* ====== базовая раскладка ====== */
+body header.top-bar {
+    background-color: black !important;
+    height: 110px;
+}
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Golos Text", sans-serif;
     margin: 0;
     background: #f4f4f4;
     color: #111;
 }
 
+/* ====== желтый хэдер ====== */
 .top-bar {
-    background: black;
-    padding: 10px 20px;
+    background: black !important;  /* фон строго желтый */
+    height: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.top-bar-inner {
+    width: 100%;
+    max-width: 1200px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
 }
 
 .logo img {
-    height: 40px;
+    width: 89px;
+    height: 75px;
+    object-fit: contain;
 }
 
+/* ====== основной контент ====== */
 main {
-    padding: 20px;
-    max-width: 600px;
-    margin: auto;
+    padding: 24px;
 }
 
-h1, h2, p {
-    text-align: center;
+/* ====== заголовок страницы ====== */
+.page-title-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.page-title-inner {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.page-title {
+    font-weight: 700;
+    font-size: 70px;
+    line-height: 1.1;
+    margin-top: 55px;
+    margin-bottom: 55px;
+    color: #111;
+    text-align: left;
+}
+
+/* ====== блок деталей звезды ====== */
+.order-details {
+    max-width: 600px;
+    margin: 0 auto 80px auto;
+    background: #fff;
+    padding: 32px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.order-details p {
+    font-size: 20px;
+    line-height: 1.5;
+    margin: 12px 0;
+}
+
+.order-details img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-top: 24px;
+    border-radius: 8px;
+    object-fit: cover;
 }
