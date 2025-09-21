@@ -117,3 +117,5 @@ func (h *Handler) GetCart(ctx *gin.Context) {
 		"minioService":   h.MinioService, // Передаем сервис в шаблон
 	})
 }
+
+//meow
