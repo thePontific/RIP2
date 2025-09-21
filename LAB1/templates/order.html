@@ -2,36 +2,53 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Детали звезды</title>
+    <title>Детали звезды - {{ .Title }}</title>
     <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles/header.css">
     <link rel="stylesheet" href="/static/styles/order_style.css">
+
 </head>
 <body>
-
-<header class="top-bar">
-    <div class="top-bar-inner">
-        <!-- логотип строго по центру -->
-        <a href="/hello" class="logo">
-            <img src="/static/img/image.png" alt="home">
-        </a>
-    </div>
-</header>
-
-<main>
-    <div class="page-title-wrapper">
-        <div class="page-title-inner">
-            <h1 class="page-title">{{ .Title }}</h1>
+    <header class="top-bar">
+        <div class="top-bar-inner">
+            <a href="/Andromeda" class="logo">
+                <img src="/static/img/image.png" alt="home">
+            </a>
         </div>
-    </div>
+    </header>
 
-    <section class="order-details">
-        <p><strong>ID:</strong> {{ .ID }}</p>
-        <p><strong>Название:</strong> {{ .Title }}</p>
-        <p><strong>Расстояние:</strong> {{ .Distance }} св. лет</p>
-        <p><strong>Описание:</strong> {{ .Description }}</p>
-        <img src="/static/img/image.png" alt="{{ .Title }}">
-    </section>
-</main>
-
+    <main>
+        <!-- Полноэкранное изображение звезды с затемнением и контентом поверх -->
+        <div class="star-hero">
+            <img src="/static/img/image.png" alt="{{ .Title }}" class="star-hero-image">
+            <!-- Контейнер для контента поверх изображения -->
+            <div class="star-content-overlay">
+                <!-- Название звезды -->
+                <div class="star-info">
+                    <h1 class="star-title">{{ .order.Title }}</h1>
+                    <p class="star-description">{{ .order.Description }}</p>
+                </div>
+                
+                <!-- Детали звезды -->
+                <div class="distance-block detail-item">
+                    <span class="detail-label">Расстояние</span>
+                    <div class="divider"></div>
+                    <span class="detail-value">{{ .order.Distance }} св. лет</span>
+                </div>
+                
+                <div class="magnitude-block detail-item">
+                    <span class="detail-label">Видимый блеск</span>
+                    <div class="divider"></div>
+                    <span class="detail-value">{{ .order.Magnitude }}</span>
+                </div>
+                
+                <div class="discovery-block detail-item">
+                    <span class="detail-label">Когда открыта</span>
+                    <div class="divider"></div>
+                    <span class="detail-value">{{ .order.DiscoveryDate }}</span>
+                </div>
+            </div>
+        </div>
+    </main>
 </body>
 </html>

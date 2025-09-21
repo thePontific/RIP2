@@ -1,90 +1,9 @@
-/* ====== базовая раскладка ====== */
-
-body {
-    font-family: Golos Text, sans-serif;
-    margin: 0;
-    background: #f4f4f4;
-    color: #111;
+/* ====== основной контент ====== */
+main {
+    padding: 24px;
 }
 
-/* ====== чёрная полоса ====== */
-.top-bar {
-    background: black;
-    height: 110px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.top-bar-inner {
-    max-width: calc(3 * 400px + 2 * 110px);
-    width: 100%;
-    height: 100%;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    position: relative; /* для центрирования логотипа */
-}
-
-/* поиск слева */
-.search-form {
-    width: 400px;
-    height: 40px;
-}
-
-.search-form input {
-    width: 100%;
-    height: 100%;
-    padding: 0 40px 0 12px;      /* справа место под иконку */
-    font-family: "Golos Text", sans-serif;
-    font-weight: 400;
-    font-size: 20px;
-    color: #565C65;
-    background: transparent;
-    border: 1px solid #565C65;
-    outline: none;
-}
-
-/* логотип строго по центру */
-.logo {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.logo img {
-    width: 89px;
-    height: 75px;
-    object-fit: contain;
-}
-
-/* опционально: правая часть (например, кнопки) */
-.top-right {
-    margin-left: auto;
-}
-
-main { 
-    padding: 0px 24px; 
-}
-
-h1 { 
-    text-align: left; 
-    margin: 16px 0 32px; 
-}
-
-/* ====== заголовок ====== */
-.page-title {
-    font-family: "Golos Text", sans-serif;
-    font-weight: 700;
-    font-size: 70px;
-    line-height: 1.1;
-    margin-top: 55px;
-    margin-bottom: 55px;
-    color: #111;
-    text-align: left;
-}
-
+/* ====== заголовок с корзиной ====== */
 .page-title-wrapper {
     display: flex;
     justify-content: center;
@@ -94,14 +13,64 @@ h1 {
     max-width: calc(3 * 400px + 2 * 110px);
     width: 100%;
     margin: 0 auto;
+    position: relative;
+    padding: 55px 0 20px 0;
+}
+
+.page-title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.page-title {
+    font-family: "Golos Text", sans-serif;
+    font-weight: 700;
+    font-size: 70px;
+    line-height: 1.1;
+    color: #111;
+    margin: 0;
+}
+
+/* Контейнер для корзины в заголовке */
+.cart-in-title {
+    display: flex;
+    align-items: center;
+}
+
+.cart-icon img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+/* Форма поиска под заголовком */
+.search-form-under-title {
+    width: 400px;
+    margin-top: 20px;
+}
+
+.search-form-under-title input {
+    width: 100%;
+    height: 40px;
+    padding: 0 12px;
+    font-family: "Golos Text", sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    color: #565C65;
+    background: transparent;
+    border: 1px solid #565C65;
+    outline: none;
 }
 
 /* ====== карточки ====== */
 .stars-grid {
     display: flex;
-    flex-wrap: wrap;         /* карточки переносятся */
-    gap: 110px;              /* промежутки */
-    justify-content: center; /* центрируем */
+    flex-wrap: wrap;
+    gap: 110px;
+    justify-content: center;
+    margin-top: 32px;
 }
 
 .star-card {
@@ -154,10 +123,10 @@ h1 {
 
 .star-card p {
     left: 44px;
-    top: 539px;       
+    top: 539px;
     font-family: "Golos Text", sans-serif;
     font-weight: 400;
     font-size: 20px;
-    line-height: 1.2; 
+    line-height: 1.2;
     letter-spacing: 0.30em;
 }

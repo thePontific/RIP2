@@ -1,89 +1,129 @@
-/* ====== базовая раскладка ====== */
-body header.top-bar {
-    background-color: black !important;
-    height: 110px;
-}
-
-body {
-    font-family: "Golos Text", sans-serif;
+/* ====== основные стили для всей страницы ====== */
+html, body {
     margin: 0;
-    background: #f4f4f4;
-    color: #111;
-}
-
-/* ====== желтый хэдер ====== */
-.top-bar {
-    background: black !important;  /* фон строго желтый */
-    height: 110px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.top-bar-inner {
-    width: 100%;
-    max-width: 1200px;
+    padding: 0;
     height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-}
-
-.logo img {
-    width: 89px;
-    height: 75px;
-    object-fit: contain;
+    overflow: hidden; /* Отключаем прокрутку для всей страницы */
 }
 
 /* ====== основной контент ====== */
 main {
-    padding: 24px;
+    padding: 0;
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
 }
 
-/* ====== заголовок страницы ====== */
-.page-title-wrapper {
-    display: flex;
-    justify-content: center;
-}
-
-.page-title-inner {
-    max-width: 1200px;
+/* ====== полноэкранное изображение с затемнением ====== */
+.star-hero {
     width: 100%;
-    margin: 0 auto;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
 }
 
-.page-title {
+.star-hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: brightness(50%); /* Затемнение на 50% */
+}
+
+/* ====== контейнер для контента поверх изображения ====== */
+.star-content-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: white;
+    z-index: 2;
+}
+
+/* ====== информация о звезде ====== */
+.star-info {
+    position: absolute;
+    top: 229px;
+    left: 250px;
+    max-width: 800px;
+}
+
+.star-title {
+    font-family: "Golos Text", sans-serif;
     font-weight: 700;
-    font-size: 70px;
+    font-size: 96px;
     line-height: 1.1;
-    margin-top: 55px;
-    margin-bottom: 55px;
-    color: #111;
-    text-align: left;
+    color: #fff;
+    margin: 0 0 24px 0;
 }
 
-/* ====== блок деталей звезды ====== */
-.order-details {
-    max-width: 600px;
-    margin: 0 auto 80px auto;
-    background: #fff;
-    padding: 32px;
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-}
-
-.order-details p {
+.star-description {
+    font-family: "Golos Text", sans-serif;
+    font-weight: 400;
     font-size: 20px;
     line-height: 1.5;
-    margin: 12px 0;
+    color: #fff;
+    margin: 0;
+    position: absolute;
+    top: 115px; /* 527 - 429 = 98px от заголовка */
+    left: 0;
+    width: 600px;
 }
 
-.order-details img {
-    display: block;
-    width: 100%;
-    height: auto;
-    margin-top: 24px;
-    border-radius: 8px;
-    object-fit: cover;
+/* ====== детали звезды ====== */
+.star-details {
+    position: absolute;
+    bottom: 174px; /* 820 - 646 = 174px от низа */
+    left: 250px;
+    display: flex;
+    gap: 553px; /* 1356 - 803 = 553px между блоками */
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.detail-label {
+    font-family: "Golos Text", sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    color: #fff;
+    margin-bottom: 8px;
+    letter-spacing: 0.30em;
+}
+
+.detail-value {
+    font-family: "Golos Text", sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    color: #fff;
+}
+
+.divider {
+    width: 353px;
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.3);
+    margin: 8px 0 12px 0;
+}
+
+/* Позиционирование отдельных элементов */
+.distance-block {
+    position: absolute;
+    left: 250px;
+    bottom: 174px; /* 820 - 646 = 174px */
+}
+
+.magnitude-block {
+    position: absolute;
+    left: 803px;
+    bottom: 174px; /* 820 - 646 = 174px */
+}
+
+.discovery-block {
+    position: absolute;
+    left: 1356px;
+    bottom: 174px; /* 820 - 646 = 174px */
 }

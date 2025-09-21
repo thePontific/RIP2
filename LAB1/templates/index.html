@@ -1,50 +1,50 @@
-<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;700&display=swap" rel="stylesheet">
+<!DOCTYPE html>
 <html lang="ru">
 <head>
+    <meta charset="UTF-8">
     <title>Звёзды галактики Андромеды</title>
+    <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles/header.css">
     <link rel="stylesheet" href="/static/styles/index_style.css">
 </head>
 <body>
-<header class="top-bar">
-    <div class="top-bar-inner">
-        <!-- поиск слева -->
-        <div class="top-left">
-            <form action="/hello" method="GET" class="search-form">
-                <input type="text" name="query" placeholder="Поиск звезды..." value="{{ .query }}">
-            </form>
-        </div>
-
-        <!-- лого по центру -->
-        <div class="top-center">
-            <a href="/hello" class="logo">
+    <header class="top-bar">
+        <div class="top-bar-inner">
+            <!-- лого строго по центру -->
+            <a href="/Andromeda" class="logo">
                 <img src="/static/img/image.png" alt="home">
             </a>
         </div>
+    </header>
 
-        <!-- пустое место справа -->
-        <div class="top-right"></div>
-    </div>
-</header>
-
-<main>
-    <div class="page-title-wrapper">
-        <div class="page-title-inner">
-            <h1 class="page-title">Звезды галактики Андромеды</h1>
+    <main>
+        <div class="page-title-wrapper">
+            <div class="page-title-inner">
+                <div class="page-title-container">
+                    <h1 class="page-title">Звезды галактики Андромеды</h1>
+                    <div class="cart-in-title">
+                        <a href="/cart" class="cart-icon">
+                            <img src="/static/img/cart.png" alt="Корзина">
+                        </a>
+                    </div>
+                </div>
+                <form action="/Andromeda" method="GET" class="search-form-under-title">
+                    <input type="text" name="query" placeholder="Поиск звезды..." value="{{ .query }}">
+                </form>
+            </div>
         </div>
-    </div>
 
-    <section class="stars-grid">
-        {{ range .orders }}
-        <article class="star-card">
-            <a href="/order/{{ .ID }}">
-                <img src="/static/img/image.png" alt="{{ .Title }}">
-                <h2>{{ .Title }}</h2>
-                <p>{{ .Distance }} св. лет</p>
-            </a>
-        </article>
-        {{ end }}
-    </section>
-</main>
-
+        <section class="stars-grid">
+            {{ range .orders }}
+            <article class="star-card">
+                <a href="/order/{{ .ID }}">
+                    <img src="/static/img/image.png" alt="{{ .Title }}">
+                    <h2>{{ .Title }}</h2>
+                    <p>{{ .Distance }} св. лет</p>
+                </a>
+            </article>
+            {{ end }}
+        </section>
+    </main>
 </body>
 </html>
