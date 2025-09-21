@@ -1,0 +1,107 @@
+/* cart_style.css */
+.cart-info {
+    border-radius: 8px;
+    margin: 20px auto;
+    max-width: 1200px;
+    text-align: center;
+}
+
+.cart-details p {
+    margin: 0;
+    font-size: 18px;
+    color: #000000;
+}
+
+.cart-items {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.cart-item-card {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Кружок изображения - УВЕЛИЧЕН */
+.item-image {
+    flex-shrink: 0;
+}
+
+.item-image img {
+    width: 200px;  /* Увеличено с 60px */
+    height: 200px; /* Увеличено с 60px */
+    border-radius: 50%;
+    object-fit: cover;
+
+}
+
+/* Название звезды */
+.item-title {
+    flex: 1;
+    min-width: 150px;
+}
+
+.item-title h3 {
+    margin: 0;
+    color: #000000;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+/* Поля ввода/вывода */
+.item-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 180px;
+}
+
+.item-field label {
+    font-weight: 600;
+    color: #000000;
+    font-size: 0.9rem;
+    margin-bottom: 2px;
+}
+
+.item-field input,
+.item-field output {
+    padding: 10px 12px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    background: white;
+}
+
+
+.item-field output {
+    background: #f8f9fa;
+    color: #000000;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+
+/* Стили для конкретных полей */
+.accuracy-input {
+    text-align: center;
+    width: 80px;
+}
+
+.comment-input {
+    min-width: 200px;
+}
+
+.speed-output {
+    background: #f8f9fa !important; /* Убрал зеленый цвет */
+    color: #368055 !important;      /* Убрал зеленый текст */
+    font-weight: 500 !important;
+    min-width: 120px;
+}
+

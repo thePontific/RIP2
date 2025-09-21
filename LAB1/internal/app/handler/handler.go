@@ -19,10 +19,10 @@ func NewHandler(r *repository.Repository) *Handler {
 		Repository: r,
 	}
 }
+
 func (h *Handler) GetOrder(ctx *gin.Context) {
-	idStr := ctx.Param("id") // получаем id заказа из урла (то есть из /order/:id)
-	// через двоеточие мы указываем параметры, которые потом сможем считать через функцию выше
-	id, err := strconv.Atoi(idStr) // так как функция выше возвращает нам строку, нужно ее преобразовать в int
+	idStr := ctx.Param("id")
+	id, err := strconv.Atoi(idStr)
 	if err != nil {
 		logrus.Error(err)
 	}
@@ -36,18 +36,19 @@ func (h *Handler) GetOrder(ctx *gin.Context) {
 		"order": order,
 	})
 }
+
 func (h *Handler) GetOrders(ctx *gin.Context) {
 	var orders []repository.Order
 	var err error
 
-	searchQuery := ctx.Query("query") // получаем значение из поля поиска
-	if searchQuery == "" {            // если поле поиска пусто, то просто получаем из репозитория все записи
+	searchQuery := ctx.Query("query")
+	if searchQuery == "" {
 		orders, err = h.Repository.GetOrders()
 		if err != nil {
 			logrus.Error(err)
 		}
 	} else {
-		orders, err = h.Repository.GetOrdersByTitle(searchQuery) // в ином случае ищем заказ по заголовку
+		orders, err = h.Repository.GetOrdersByTitle(searchQuery)
 		if err != nil {
 			logrus.Error(err)
 		}
@@ -56,7 +57,57 @@ func (h *Handler) GetOrders(ctx *gin.Context) {
 	ctx.HTML(http.StatusOK, "index.html", gin.H{
 		"time":   time.Now().Format("15:04:05"),
 		"orders": orders,
-		"query":  searchQuery, // передаем введенный запрос обратно на страницу
-		// в ином случае оно будет очищаться при нажатии на кнопку
+		"query":  searchQuery,
 	})
+}
+
+func (h *Handler) GetCart(ctx *gin.Context) {
+	cartIDStr := ctx.Param("id")
+	cartID, err := strconv.Atoi(cartIDStr)
+	if err != nil {
+		logrus.Error("Неверный ID корзины:", err)
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Неверный ID корзины"})
+		return
+	}
+
+	cart, err := h.Repository.GetCart(cartID)
+	if err != nil {
+		logrus.Error("Ошибка получения корзины:", err)
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Ошибка получения корзины"})
+		return
+	}
+
+	// Получаем информацию о товарах в корзине
+	var cartItemsWithDetails []gin.H
+	for _, item := range cart.Items {
+		order, err := h.Repository.GetOrder(item.OrderID)
+		if err != nil {
+			logrus.Errorf("Ошибка получения заказа %d: %v", item.OrderID, err)
+			continue
+		}
+
+		cartItemsWithDetails = append(cartItemsWithDetails, gin.H{
+			"Order":     order,
+			"Quantity":  item.Quantity,
+			"Comment":   item.Comment,
+			"IsPrimary": item.IsPrimary,
+		})
+	}
+
+	ctx.HTML(http.StatusOK, "cart.html", gin.H{
+		"cart":      cart,
+		"cartItems": cartItemsWithDetails,
+	})
+}
+
+func (h *Handler) GetCartItemsCount(ctx *gin.Context) {
+	cartID := 1
+	count, err := h.Repository.GetCartItemsCount(cartID)
+	if err != nil {
+		logrus.Error(err)
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Ошибка получения корзины"})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{"count": count})
 }

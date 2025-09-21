@@ -28,7 +28,8 @@ func StartServer() {
 
 	r.GET("/Andromeda", handler.GetOrders)
 	r.GET("/order/:id", handler.GetOrder)
+	r.GET("/cart/:id", handler.GetCart) // МЕНЯЕМ НА /cart/:id
 
-	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
+	r.Run() // listen and serve on 0.0.0.0:8080
 	log.Println("Server down")
 }

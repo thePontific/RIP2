@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Корзина заказов</title>
+    <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles/header.css">
+    <link rel="stylesheet" href="/static/styles/cart_style.css">
+</head>
+<body class="cart-page">
+    <header class="top-bar">
+        <div class="top-bar-inner">
+            <a href="/Andromeda" class="logo">
+                <img src="/static/img/image.png" alt="home">
+            </a>
+        </div>
+    </header>
+
+    <main>
+
+        <section class="cart-info">
+            <div class="cart-details">
+                <p><strong>Количество заявок на расчет:</strong> {{len .cartItems}}</p>
+            </div>
+        </section>
+
+        <section class="cart-items">
+            {{range .cartItems}}
+            <div class="cart-item-card">
+                <!-- Кружок изображения -->
+                <div class="item-image">
+                    <img src="/static/img/image.png" alt="{{.Order.Title}}">
+                </div>
+                
+                <!-- Название звезды -->
+                <div class="item-title">
+                    <h3>{{.Order.Title}}</h3>
+                </div>
+                
+                <!-- Поле для ввода точности расчета -->
+                <div class="item-field">
+                    <label>Точность расчета:</label>
+                    <input type="number" value="2" min="0" max="10" class="accuracy-input" placeholder="0-10">
+                </div>
+                
+                <!-- Поле для ввода комментария -->
+                <div class="item-field">
+                    <label>Комментарий к расчету:</label>
+                    <input type="text" value="{{.Comment}}" class="comment-input" placeholder="Введите комментарий">
+                </div>
+                
+                <!-- Поле для вывода расчетной скорости -->
+                <div class="item-field">
+                    <label>Расчетная скорость:</label>
+                    <output class="speed-output">12 450 км/с</output>
+                </div>
+            </div>
+            {{end}}
+        </section>
+    </main>
+</body>
+</html>

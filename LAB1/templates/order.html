@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Детали звезды - {{ .Title }}</title>
+    <title>Детали звезды - {{ .order.Title }}</title>
     <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/styles/header.css">
     <link rel="stylesheet" href="/static/styles/order_style.css">
@@ -43,7 +43,7 @@
                 </div>
                 
                 <div class="discovery-block detail-item">
-                    <span class="detail-label">Когда открыта</span>
+                    <span class="detail-label">Открыта</span>
                     <div class="divider"></div>
                     <span class="detail-value">{{ .order.DiscoveryDate }}</span>
                 </div>
