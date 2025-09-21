@@ -3,6 +3,7 @@ package api
 import (
 	"LAB1/internal/app/handler"
 	"LAB1/internal/app/repository"
+	"LAB1/internal/service"
 	"log"
 
 	"github.com/gin-gonic/gin"
@@ -17,7 +18,11 @@ func StartServer() {
 		logrus.Error("ошибка инициализации репозитория")
 	}
 
-	handler := handler.NewHandler(repo)
+	// Инициализация Minio сервиса
+	minioService := service.NewMinioService()
+
+	// Инициализация handler
+	handler := handler.NewHandler(repo, minioService)
 
 	r := gin.Default()
 	// добавляем наш html/шаблон

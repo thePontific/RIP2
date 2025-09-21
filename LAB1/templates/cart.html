@@ -11,7 +11,7 @@
     <header class="top-bar">
         <div class="top-bar-inner">
             <a href="/Andromeda" class="logo">
-                <img src="/static/img/image.png" alt="home">
+                <img src="http://127.0.0.1:9000/cardsandromeda/image.png" alt="home">
             </a>
         </div>
     </header>
@@ -20,7 +20,7 @@
 
         <section class="cart-info">
             <div class="cart-details">
-                <p><strong>Количество заявок на расчет:</strong> {{len .cartItems}}</p>
+                <p><strong>Количество заявок на расчет:</strong> {{.cartItemsCount}}</p>
             </div>
         </section>
 
@@ -29,7 +29,7 @@
             <div class="cart-item-card">
                 <!-- Кружок изображения -->
                 <div class="item-image">
-                    <img src="/static/img/image.png" alt="{{.Order.Title}}">
+                    <img src="{{$.minioService.GetImageURL .Order.ImageName}}" alt="{{.Order.Title}}">
                 </div>
                 
                 <!-- Название звезды -->

@@ -2,6 +2,7 @@ package handler
 
 import (
 	"LAB1/internal/app/repository"
+	"LAB1/internal/service"
 	"net/http"
 	"strconv"
 	"time"
@@ -11,12 +12,14 @@ import (
 )
 
 type Handler struct {
-	Repository *repository.Repository
+	Repository   *repository.Repository
+	MinioService *service.MinioService
 }
 
-func NewHandler(r *repository.Repository) *Handler {
+func NewHandler(r *repository.Repository, ms *service.MinioService) *Handler {
 	return &Handler{
-		Repository: r,
+		Repository:   r,
+		MinioService: ms,
 	}
 }
 
@@ -32,11 +35,16 @@ func (h *Handler) GetOrder(ctx *gin.Context) {
 		logrus.Error(err)
 	}
 
+	// Получаем URL изображения из Minio
+	imageURL := h.MinioService.GetImageURL(order.ImageName)
+
 	ctx.HTML(http.StatusOK, "order.html", gin.H{
-		"order": order,
+		"order":    order,
+		"imageURL": imageURL,
 	})
 }
 
+// handler.go
 func (h *Handler) GetOrders(ctx *gin.Context) {
 	var orders []repository.Order
 	var err error
@@ -54,10 +62,16 @@ func (h *Handler) GetOrders(ctx *gin.Context) {
 		}
 	}
 
+	// Получаем количество товаров в корзине
+	cartItemsCount, _ := h.Repository.GetCartItemsCount(1)
+
 	ctx.HTML(http.StatusOK, "index.html", gin.H{
-		"time":   time.Now().Format("15:04:05"),
-		"orders": orders,
-		"query":  searchQuery,
+		"time":           time.Now().Format("15:04:05"),
+		"orders":         orders,
+		"query":          searchQuery,
+		"cartID":         1,
+		"cartItemsCount": cartItemsCount,
+		"minioService":   h.MinioService, // Передаем сервис в шаблон
 	})
 }
 
@@ -77,6 +91,9 @@ func (h *Handler) GetCart(ctx *gin.Context) {
 		return
 	}
 
+	// Получаем количество товаров через отдельный метод
+	cartItemsCount, _ := h.Repository.GetCartItemsCount(cartID)
+
 	// Получаем информацию о товарах в корзине
 	var cartItemsWithDetails []gin.H
 	for _, item := range cart.Items {
@@ -88,26 +105,15 @@ func (h *Handler) GetCart(ctx *gin.Context) {
 
 		cartItemsWithDetails = append(cartItemsWithDetails, gin.H{
 			"Order":     order,
-			"Quantity":  item.Quantity,
 			"Comment":   item.Comment,
 			"IsPrimary": item.IsPrimary,
 		})
 	}
 
 	ctx.HTML(http.StatusOK, "cart.html", gin.H{
-		"cart":      cart,
-		"cartItems": cartItemsWithDetails,
+		"cart":           cart,
+		"cartItems":      cartItemsWithDetails,
+		"cartItemsCount": cartItemsCount,
+		"minioService":   h.MinioService, // Передаем сервис в шаблон
 	})
-}
-
-func (h *Handler) GetCartItemsCount(ctx *gin.Context) {
-	cartID := 1
-	count, err := h.Repository.GetCartItemsCount(cartID)
-	if err != nil {
-		logrus.Error(err)
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Ошибка получения корзины"})
-		return
-	}
-
-	ctx.JSON(http.StatusOK, gin.H{"count": count})
 }

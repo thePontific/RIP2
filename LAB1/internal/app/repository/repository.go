@@ -15,32 +15,33 @@ func NewRepository() (*Repository, error) {
 	}, nil
 }
 
+// repository.go
 type Order struct {
 	ID            int
 	Title         string
 	Distance      float32
-	StarType      string  // тип звезды
-	Magnitude     float32 // звездная величина
-	Description   string  // описание
-	Mass          float32 // масса (в солнечных массах)
-	Temperature   int     // температура поверхности
-	DiscoveryDate string  // дата открытия (добавьте это поле)
+	StarType      string
+	Magnitude     float32
+	Description   string
+	Mass          float32
+	Temperature   int
+	DiscoveryDate string
+	ImageName     string // Новое поле для названия изображения
 }
 
 // CartItem представляет элемент в корзине
 type CartItem struct {
 	OrderID   int
-	Quantity  int
 	Comment   string
 	IsPrimary bool
 }
 
 // Cart представляет корзину/заявку
 type Cart struct {
-	ID     int
-	Items  []CartItem
-	Total  float32 // итоговая стоимость (заглушка)
-	Status string
+	ID    int
+	Items []CartItem
+	//Total  float32
+	//Status string
 }
 
 func (r *Repository) GetOrder(id int) (Order, error) {
@@ -69,6 +70,7 @@ func (r *Repository) GetOrders() ([]Order, error) {
 			Mass:          12.5,
 			Temperature:   3500,
 			DiscoveryDate: "В 1940 году",
+			ImageName:     "1",
 		},
 		{
 			ID:            2,
@@ -80,6 +82,7 @@ func (r *Repository) GetOrders() ([]Order, error) {
 			Mass:          1.4,
 			Temperature:   28000,
 			DiscoveryDate: "В 2008 году",
+			ImageName:     "2",
 		},
 		{
 			ID:            3,
@@ -91,6 +94,7 @@ func (r *Repository) GetOrders() ([]Order, error) {
 			Mass:          8.7,
 			Temperature:   10000,
 			DiscoveryDate: "В 1885 году",
+			ImageName:     "3",
 		},
 		{
 			ID:            4,
@@ -102,6 +106,7 @@ func (r *Repository) GetOrders() ([]Order, error) {
 			Mass:          15000,
 			Temperature:   4500,
 			DiscoveryDate: "В 1784 году",
+			ImageName:     "4",
 		},
 		{
 			ID:            5,
@@ -113,6 +118,7 @@ func (r *Repository) GetOrders() ([]Order, error) {
 			Mass:          6.8,
 			Temperature:   12000,
 			DiscoveryDate: "В 1922 году",
+			ImageName:     "5",
 		},
 		{
 			ID:            6,
@@ -124,6 +130,7 @@ func (r *Repository) GetOrders() ([]Order, error) {
 			Mass:          5.2,
 			Temperature:   6000,
 			DiscoveryDate: "В 1923 году",
+			ImageName:     "6",
 		},
 	}
 
@@ -150,37 +157,26 @@ func (r *Repository) GetOrdersByTitle(title string) ([]Order, error) {
 	return result, nil
 }
 
-// Добавляем методы для работы с корзиной
 func (r *Repository) GetCart(cartID int) (Cart, error) {
 	// Заглушка - возвращаем тестовую корзину
 	cart := Cart{
-		ID:     cartID,
-		Total:  15420.50, // заглушка для вычислений
-		Status: "В обработке",
+		ID: cartID,
 		Items: []CartItem{
-			{OrderID: 1, Quantity: 2, Comment: "Срочно", IsPrimary: true},
-			{OrderID: 3, Quantity: 1, Comment: "Резерв", IsPrimary: false},
+			{OrderID: 1, Comment: "Срочно"},
+			{OrderID: 3, Comment: "Резерв"},
+			{OrderID: 2, Comment: "Резерв"},
 		},
 	}
 	return cart, nil
 }
 
-func (r *Repository) AddToCart(cartID, orderID int, quantity int, comment string, isPrimary bool) error {
-	// Заглушка - в реальной реализации здесь будет логика добавления в БД
-	return nil
-}
-
+// Считаем просто количество элементов в корзине
 func (r *Repository) GetCartItemsCount(cartID int) (int, error) {
 	cart, err := r.GetCart(cartID)
 	if err != nil {
 		return 0, err
 	}
 
-	// Считаем общее количество товаров
-	totalItems := 0
-	for _, item := range cart.Items {
-		totalItems += item.Quantity
-	}
-
-	return totalItems, nil
+	// Просто возвращаем количество элементов
+	return len(cart.Items), nil
 }

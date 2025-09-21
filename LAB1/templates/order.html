@@ -12,7 +12,7 @@
     <header class="top-bar">
         <div class="top-bar-inner">
             <a href="/Andromeda" class="logo">
-                <img src="/static/img/image.png" alt="home">
+                <img src="http://127.0.0.1:9000/cardsandromeda/image.png" alt="home">
             </a>
         </div>
     </header>
@@ -20,7 +20,7 @@
     <main>
         <!-- Полноэкранное изображение звезды с затемнением и контентом поверх -->
         <div class="star-hero">
-            <img src="/static/img/image.png" alt="{{ .Title }}" class="star-hero-image">
+            <img src="{{.imageURL}}" alt="{{.order.Title}}" class="star-hero-image">
             <!-- Контейнер для контента поверх изображения -->
             <div class="star-content-overlay">
                 <!-- Название звезды -->
