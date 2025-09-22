@@ -18,23 +18,18 @@ func StartServer() {
 		logrus.Error("ошибка инициализации репозитория")
 	}
 
-	// Инициализация Minio сервиса
 	minioService := service.NewMinioService()
-
-	// Инициализация handler
-	handler := handler.NewHandler(repo, minioService)
+	h := handler.NewHandler(repo, minioService)
 
 	r := gin.Default()
-	// добавляем наш html/шаблон
 	r.LoadHTMLGlob("templates/*")
 	r.Static("/static", "./resources")
-	// слева название папки, в которую выгрузится наша статика
-	// справа путь к папке, в которой лежит статика
 
-	r.GET("/Andromeda", handler.GetOrders)
-	r.GET("/order/:id", handler.GetOrder)
-	r.GET("/cart/:id", handler.GetCart) // МЕНЯЕМ НА /cart/:id
+	r.GET("/Andromeda", h.GetStars)
+	r.GET("/Andromeda/star/:id", h.GetStarDetails)
 
-	r.Run() // listen and serve on 0.0.0.0:8080
+	r.GET("/cart/:id", h.GetCartDetails)
+
+	r.Run()
 	log.Println("Server down")
 }

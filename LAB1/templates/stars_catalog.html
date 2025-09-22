@@ -5,7 +5,7 @@
     <title>Звёзды галактики Андромеды</title>
     <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/styles/header.css">
-    <link rel="stylesheet" href="/static/styles/index_style.css">
+    <link rel="stylesheet" href="/static/styles/starts_catalog_style.css">
 </head>
 <body class="index-page">
     <header class="top-bar">
@@ -39,7 +39,8 @@
         <section class="stars-grid">
             {{ range .orders }}
             <article class="star-card">
-                <a href="/order/{{ .ID }}">
+                <a href="/Andromeda/star/{{ .ID }}">
+
                     <!-- ИСПРАВЛЕННАЯ СТРОКА: как в корзине -->
                     <img src="{{$.minioService.GetImageURL .ImageName}}" alt="{{ .Title }}">
                     <h2>{{ .Title }}</h2>

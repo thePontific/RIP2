@@ -23,29 +23,8 @@ func NewHandler(r *repository.Repository, ms *service.MinioService) *Handler {
 	}
 }
 
-func (h *Handler) GetOrder(ctx *gin.Context) {
-	idStr := ctx.Param("id")
-	id, err := strconv.Atoi(idStr)
-	if err != nil {
-		logrus.Error(err)
-	}
-
-	order, err := h.Repository.GetOrder(id)
-	if err != nil {
-		logrus.Error(err)
-	}
-
-	// Получаем URL изображения из Minio
-	imageURL := h.MinioService.GetImageURL(order.ImageName)
-
-	ctx.HTML(http.StatusOK, "order.html", gin.H{
-		"order":    order,
-		"imageURL": imageURL,
-	})
-}
-
-// handler.go
-func (h *Handler) GetOrders(ctx *gin.Context) {
+// ====== Каталог звезд ======
+func (h *Handler) GetStars(ctx *gin.Context) {
 	var orders []repository.Order
 	var err error
 
@@ -62,20 +41,45 @@ func (h *Handler) GetOrders(ctx *gin.Context) {
 		}
 	}
 
-	// Получаем количество товаров в корзине
 	cartItemsCount, _ := h.Repository.GetCartItemsCount(1)
 
-	ctx.HTML(http.StatusOK, "index.html", gin.H{
+	ctx.HTML(http.StatusOK, "stars_catalog.html", gin.H{
 		"time":           time.Now().Format("15:04:05"),
 		"orders":         orders,
 		"query":          searchQuery,
 		"cartID":         1,
 		"cartItemsCount": cartItemsCount,
-		"minioService":   h.MinioService, // Передаем сервис в шаблон
+		"minioService":   h.MinioService,
 	})
 }
 
-func (h *Handler) GetCart(ctx *gin.Context) {
+// ====== Детали звезды ======
+func (h *Handler) GetStarDetails(ctx *gin.Context) {
+	idStr := ctx.Param("id")
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		logrus.Error(err)
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Неверный ID звезды"})
+		return
+	}
+
+	order, err := h.Repository.GetOrder(id)
+	if err != nil {
+		logrus.Error(err)
+		ctx.JSON(http.StatusNotFound, gin.H{"error": "Звезда не найдена"})
+		return
+	}
+
+	imageURL := h.MinioService.GetImageURL(order.ImageName)
+
+	ctx.HTML(http.StatusOK, "star_details.html", gin.H{
+		"order":    order,
+		"imageURL": imageURL,
+	})
+}
+
+// ====== Корзина / расчет заявки ======
+func (h *Handler) GetCartDetails(ctx *gin.Context) {
 	cartIDStr := ctx.Param("id")
 	cartID, err := strconv.Atoi(cartIDStr)
 	if err != nil {
@@ -91,10 +95,8 @@ func (h *Handler) GetCart(ctx *gin.Context) {
 		return
 	}
 
-	// Получаем количество товаров через отдельный метод
 	cartItemsCount, _ := h.Repository.GetCartItemsCount(cartID)
 
-	// Получаем информацию о товарах в корзине
 	var cartItemsWithDetails []gin.H
 	for _, item := range cart.Items {
 		order, err := h.Repository.GetOrder(item.OrderID)
@@ -110,12 +112,10 @@ func (h *Handler) GetCart(ctx *gin.Context) {
 		})
 	}
 
-	ctx.HTML(http.StatusOK, "cart.html", gin.H{
+	ctx.HTML(http.StatusOK, "cart_calc_speed.html", gin.H{
 		"cart":           cart,
 		"cartItems":      cartItemsWithDetails,
 		"cartItemsCount": cartItemsCount,
-		"minioService":   h.MinioService, // Передаем сервис в шаблон
+		"minioService":   h.MinioService,
 	})
 }
-
-//meow
