@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Детали звезды - {{ .order.Title }}</title>
+    <title>Детали звезды - {{ .Star.Title }}</title>
     <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/styles/header.css">
     <link rel="stylesheet" href="/static/styles/star_details_style.css">
@@ -20,32 +20,32 @@
     <main>
         <!-- Полноэкранное изображение звезды с затемнением и контентом поверх -->
         <div class="star-hero">
-            <img src="{{.imageURL}}" alt="{{.order.Title}}" class="star-hero-image">
+            <img src="{{.imageURL}}" alt="{{.Star.Title}}" class="star-hero-image">
             <!-- Контейнер для контента поверх изображения -->
             <div class="star-content-overlay">
                 <!-- Название звезды -->
                 <div class="star-info">
-                    <h1 class="star-title">{{ .order.Title }}</h1>
-                    <p class="star-description">{{ .order.Description }}</p>
+                    <h1 class="star-title">{{ .Star.Title }}</h1>
+                    <p class="star-description">{{ .Star.Description }}</p>
                 </div>
                 
                 <!-- Детали звезды -->
                 <div class="distance-block detail-item">
                     <span class="detail-label">Расстояние</span>
                     <div class="divider"></div>
-                    <span class="detail-value">{{ .order.Distance }} св. лет</span>
+                    <span class="detail-value">{{ .Star.Distance }} св. лет</span>
                 </div>
                 
                 <div class="magnitude-block detail-item">
                     <span class="detail-label">Видимый блеск</span>
                     <div class="divider"></div>
-                    <span class="detail-value">{{ .order.Magnitude }}</span>
+                    <span class="detail-value">{{ .Star.Magnitude }}</span>
                 </div>
                 
                 <div class="discovery-block detail-item">
                     <span class="detail-label">Открыта</span>
                     <div class="divider"></div>
-                    <span class="detail-value">{{ .order.DiscoveryDate }}</span>
+                    <span class="detail-value">{{ .Star.DiscoveryDate }}</span>
                 </div>
             </div>
         </div>
