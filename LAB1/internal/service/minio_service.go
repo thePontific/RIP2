@@ -2,7 +2,7 @@
 package service
 
 const (
-	MinioEndpoint = "http://127.0.0.1:9000"
+	MinioEndpoint = "http://localhost:9000"
 	BucketName    = "cardsandromeda"
 )
 

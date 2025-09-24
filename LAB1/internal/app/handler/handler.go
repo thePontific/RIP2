@@ -32,7 +32,7 @@ func (h *Handler) GetStars(ctx *gin.Context) {
 	var stars []repository.Star
 	var err error
 
-	searchQuery := ctx.Query("query")
+	searchQuery := ctx.Query("starname")
 	if searchQuery == "" {
 		stars, err = h.Repository.ListStars() // Получаем все звезды
 		if err != nil {
@@ -57,11 +57,12 @@ func (h *Handler) GetStars(ctx *gin.Context) {
 	ctx.HTML(http.StatusOK, "stars_catalog.html", gin.H{
 		"time":           time.Now().Format("15:04:05"),
 		"stars":          stars,
-		"query":          searchQuery,
+		"starname":       searchQuery, // было "query"
 		"cartID":         cartID,
 		"cartItemsCount": cartItemsCount,
-		"minioService":   h.MinioService, // Используется для получения URL картинок
+		"minioService":   h.MinioService,
 	})
+
 }
 
 // ====== Детали звезды ======
@@ -95,31 +96,31 @@ func (h *Handler) GetStarDetails(ctx *gin.Context) {
 // ====== Корзина / расчет заявки ======
 // Возвращает страницу корзины с деталями всех добавленных звезд.
 // Загружает все элементы корзины, детали каждой звезды и количество элементов.
-func (h *Handler) GetCartDetails(ctx *gin.Context) {
+// ====== Starscart / расчет заявки ======
+func (h *Handler) GetStarscartDetails(ctx *gin.Context) {
 	cartIDStr := ctx.Param("id")
 	cartID, err := strconv.Atoi(cartIDStr)
 	if err != nil {
 		logrus.Error("Неверный ID корзины:", err)
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Неверный ID корзины"})
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Неверный ID Starscart"})
 		return
 	}
 
-	cart, err := h.Repository.GetCartByID(cartID) // Получаем корзину по ID
+	cart, err := h.Repository.GetCartByID(cartID)
 	if err != nil {
-		logrus.Error("Ошибка получения корзины:", err)
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Ошибка получения корзины"})
+		logrus.Error("Ошибка получения Starscart:", err)
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Ошибка получения Starscart"})
 		return
 	}
 
-	cartItemsCount, _ := h.Repository.CountCartItems(cartID) // Считаем количество элементов в корзине
+	cartItemsCount, _ := h.Repository.CountCartItems(cartID)
 
-	// Получаем все ID звезд из корзины
+	// Получаем ID звёзд
 	var starIDs []int
 	for _, item := range cart.Items {
 		starIDs = append(starIDs, item.StarID)
 	}
 
-	// Получаем сразу все звезды, которые есть в корзине (оптимизация)
 	starsMap := make(map[int]repository.Star)
 	for _, starID := range starIDs {
 		star, err := h.Repository.FindStarByID(starID)
@@ -130,14 +131,12 @@ func (h *Handler) GetCartDetails(ctx *gin.Context) {
 		starsMap[starID] = star
 	}
 
-	// Формируем массив с деталями каждого элемента корзины
 	var cartItemsWithDetails []gin.H
 	for _, item := range cart.Items {
 		star, ok := starsMap[item.StarID]
 		if !ok {
-			continue // если звезда не найдена, пропускаем
+			continue
 		}
-
 		cartItemsWithDetails = append(cartItemsWithDetails, gin.H{
 			"Star":      star,
 			"Comment":   item.Comment,
@@ -145,11 +144,13 @@ func (h *Handler) GetCartDetails(ctx *gin.Context) {
 		})
 	}
 
-	// Отправляем данные в HTML-шаблон
-	ctx.HTML(http.StatusOK, "cart_calc_speed.html", gin.H{
+	ctx.HTML(http.StatusOK, "starscart_calc_speed.html", gin.H{
 		"cart":           cart,
 		"cartItems":      cartItemsWithDetails,
 		"cartItemsCount": cartItemsCount,
 		"minioService":   h.MinioService,
 	})
 }
+
+//query поправить под типа поиск звезды(профильное название)
+//поправить cart на что-то нормисное, типо cart_calc_speed

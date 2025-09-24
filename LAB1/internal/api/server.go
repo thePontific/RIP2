@@ -29,7 +29,7 @@ func StartServer() {
 	r.GET("/Andromeda", h.GetStars)
 	r.GET("/Andromeda/star/:id", h.GetStarDetails)
 
-	r.GET("/cart/:id", h.GetCartDetails)
+	r.GET("/Andromeda/starscart/:id", h.GetStarscartDetails)
 
 	r.Run()
 	log.Println("Server down")

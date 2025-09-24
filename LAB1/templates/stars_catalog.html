@@ -21,18 +21,19 @@
             <div class="page-title-inner">
                 <div class="page-title-container">
                     <h1 class="page-title">Звезды галактики Андромеды</h1>
-                    <div class="cart-in-title">
-                        <a href="/cart/{{.cartID}}" class="cart-icon" style="position: relative;">
-                            <img src="http://127.0.0.1:9000/cardsandromeda/cart.png" alt="Корзина">
-                            {{if gt .cartItemsCount 0}}
-                            <span class="cart-count">{{.cartItemsCount}}</span>
-                            {{end}}
-                        </a>
-                    </div>
+                        <div class="cart-in-title">
+                            <a href="Andromeda/starscart/{{.cartID}}" class="cart-icon" style="position: relative;">
+                                <img src="http://127.0.0.1:9000/cardsandromeda/cart.png" alt="Starscart">
+                                {{if gt .cartItemsCount 0}}
+                                <span class="cart-count">{{.cartItemsCount}}</span>
+                                {{end}}
+                            </a>
+                        </div>
                 </div>
-                <form action="/Andromeda" method="GET" class="search-form-under-title">
-                    <input type="text" name="query" placeholder="Поиск звезды..." value="{{ .query }}">
-                </form>
+                    <form action="/Andromeda" method="GET" class="search-form-under-title">
+                        <input type="text" name="starname" placeholder="Поиск звезды..." value="{{ .starname }}">
+                    </form>
+
             </div>
         </div>
 
