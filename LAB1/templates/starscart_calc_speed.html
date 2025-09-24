@@ -57,6 +57,16 @@
             </div>
             {{end}}
         </section>
+        <section class="cart-actions">
+    <div style="text-align:center; margin-top:20px;">
+        <form method="POST" action="/delete-cart">
+            <input type="hidden" name="cart_id" value="{{.cart.ID}}">
+            <button type="submit" class="delete-button">Удалить заявку</button>
+        </form>
+    </div>
+</section>
+
+
     </main>
 </body>
 </html>

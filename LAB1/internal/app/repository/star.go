@@ -1,55 +1,45 @@
 package repository
 
 import (
-	"fmt"
-
 	"LAB1/internal/app/ds"
+	"fmt"
 )
 
+// "Удаление" услуги — помечаем is_delete = true
+func (r *Repository) DeleteStar(starID int) error {
+	err := r.db.Model(&ds.Star{}).Where("id = ?", starID).UpdateColumn("is_delete", true).Error
+	if err != nil {
+		return fmt.Errorf("ошибка при удалении услуги с id %d: %w", starID, err)
+	}
+	return nil
+}
+
+// Получаем все услуги, только не удалённые
 func (r *Repository) GetStars() ([]ds.Star, error) {
 	var stars []ds.Star
-	err := r.db.Find(&stars).Error
+	err := r.db.Where("is_delete = false").Find(&stars).Error
 	if err != nil {
 		return nil, err
-	}
-	if len(stars) == 0 {
-		return nil, fmt.Errorf("список звезд пуст")
 	}
 	return stars, nil
 }
 
+// Получение услуги по ID
 func (r *Repository) GetStar(id int) (ds.Star, error) {
 	var star ds.Star
-	err := r.db.First(&star, id).Error
+	err := r.db.Where("id = ? AND is_delete = false", id).First(&star).Error
 	if err != nil {
 		return ds.Star{}, err
 	}
 	return star, nil
 }
 
+// Поиск услуги по названию, только не удалённые
 func (r *Repository) SearchStarByTitle(title string) ([]ds.Star, error) {
 	var stars []ds.Star
-	err := r.db.Where("title ILIKE ?", "%"+title+"%").Find(&stars).Error
+	err := r.db.Where("title ILIKE ? AND is_delete = false", "%"+title+"%").Find(&stars).Error
 	if err != nil {
 		return nil, err
 	}
 	return stars, nil
-}
-
-func (r *Repository) GetCartByID(cartID int) (ds.Cart, error) {
-	var cart ds.Cart
-	err := r.db.Preload("Items").First(&cart, cartID).Error
-	if err != nil {
-		return ds.Cart{}, err
-	}
-	return cart, nil
-}
-
-func (r *Repository) CountCartItems(cartID int) (int, error) {
-	var count int64
-	err := r.db.Model(&ds.CartItem{}).Where("cart_id = ?", cartID).Count(&count).Error
-	if err != nil {
-		return 0, err
-	}
-	return int(count), nil
 }

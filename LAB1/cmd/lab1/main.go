@@ -29,6 +29,11 @@ func main() {
 		logrus.Fatalf("error initializing repository: %v", errRep)
 	}
 
+	// Сбрасываем все удаления при старте
+	if err := rep.ResetDeletedStars(); err != nil {
+		logrus.Errorf("Ошибка сброса удалённых звезд: %v", err)
+	}
+
 	minioService := service.NewMinioService()
 	hand := handler.NewHandler(rep, minioService)
 

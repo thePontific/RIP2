@@ -24,7 +24,13 @@ func NewHandler(r *repository.Repository, ms *service.MinioService) *Handler {
 func (h *Handler) RegisterHandler(router *gin.Engine) {
 	router.GET("/Andromeda", h.GetStars)
 	router.GET("/Andromeda/star/:id", h.GetStarDetails)
-	router.GET("/Andromeda/starscart/:id", h.GetStarscartDetails)
+	router.GET("/Andromeda/starscart/:id", h.GetCartDetails)
+
+	// Добавляем маршрут удаления услуги
+	router.POST("/delete-star", h.DeleteStar)
+	// Добавление звезды в корзину
+	router.POST("/cart/add", h.AddStarToCart)
+	router.POST("/delete-cart", h.DeleteCart)
 }
 
 // RegisterStatic регистрирует статику и шаблоны

@@ -16,10 +16,12 @@ func main() {
 		panic("failed to connect database")
 	}
 
+	// Migrate the schema: только 4 таблицы
 	err = db.AutoMigrate(
-		&ds.Star{},
-		&ds.Cart{},
-		&ds.CartItem{},
+		&ds.Star{},     // услуги
+		&ds.Cart{},     // заявки
+		&ds.CartItem{}, // М-М заявки–услуги
+		&ds.Users{},    // пользователи
 	)
 	if err != nil {
 		panic("cant migrate db")

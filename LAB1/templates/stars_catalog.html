@@ -22,7 +22,7 @@
                 <div class="page-title-container">
                     <h1 class="page-title">Звезды галактики Андромеды</h1>
                         <div class="cart-in-title">
-                            <a href="Andromeda/starscart/{{.cartID}}" class="cart-icon" style="position: relative;">
+                            <a href="/Andromeda/starscart/{{.cartID}}" class="cart-icon" style="position: relative;">
                                 <img src="http://127.0.0.1:9000/cardsandromeda/cart.png" alt="Starscart">
                                 {{if gt .cartItemsCount 0}}
                                 <span class="cart-count">{{.cartItemsCount}}</span>
@@ -47,6 +47,19 @@
                     <h2>{{ .Title }}</h2>
                     <p>{{ .Distance }} св. лет</p>
                 </a>
+                <!-- Кнопка добавления в корзину -->
+                <form method="POST" action="/cart/add" class="add-star-btn">
+                    <input type="hidden" name="cart_id" value="{{ $.cartID }}">
+                    <input type="hidden" name="star_id" value="{{ .ID }}">
+                    <input type="hidden" name="quantity" value="1">
+                    <button type="submit">+</button>
+                </form>
+
+                <!-- Крестик для удаления -->
+                <form method="POST" action="/delete-star" class="delete-star-form">
+                    <input type="hidden" name="star_id" value="{{ .ID }}">
+                    <button type="submit">✖</button>
+                </form>
             </article>
             {{ end }}
         </section>

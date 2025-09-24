@@ -130,3 +130,81 @@ main {
     line-height: 1.2;
     letter-spacing: 0.30em;
 }
+/* ====== крестик удаления ====== */
+.star-card form.delete-star-form {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    margin: 0;
+}
+
+.star-card form.delete-star-form button {
+    background: #d83933;
+    color: #fff;                     /* белый крестик */
+    border: none;
+    font-size: 18px;
+    line-height: 1;
+    padding: 4px 8px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+.add-to-cart-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.quantity-input {
+    width: 50px;
+    padding: 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.add-to-cart-btn {
+    background-color: #4CAF50; /* зелёная кнопка */
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #45a049;
+}
+/* Кнопка добавления в корзину в левом верхнем углу карточки */
+.star-card {
+    position: relative; /* важно для абсолютного позиционирования кнопок */
+}
+
+.add-star-btn {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    z-index: 10;
+}
+
+.add-star-btn button {
+    background-color: #28a745; /* зелёный фон */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.add-star-btn button:hover {
+    background-color: #218838; /* более тёмный зелёный при наведении */
+}

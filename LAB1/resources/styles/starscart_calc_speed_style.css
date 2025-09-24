@@ -99,9 +99,32 @@
 }
 
 .speed-output {
-    background: #f8f9fa !important; /* Убрал зеленый цвет */
-    color: #368055 !important;      /* Убрал зеленый текст */
+    background: #f8f9fa !important; 
+    color: #368055 !important;     
     font-weight: 500 !important;
     min-width: 120px;
 }
 
+.delete-button {
+    background: linear-gradient(135deg, #ff4b5c, #ff6f61);
+    color: #fff;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+.delete-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    background: linear-gradient(135deg, #ff6f61, #ff4b5c);
+}
+
+.delete-button:active {
+    transform: translateY(0);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
